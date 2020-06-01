@@ -1,0 +1,10 @@
+groups:
+  - name: AllInstances
+    rules:
+    - alert: TestAlert
+      expr: sum(increase(requests_total{code="500"}[10s])) > 0
+      for: 10s
+      annotations:
+        summary: 'test of alert'
+      labels:
+        status: 'PROBLEM'

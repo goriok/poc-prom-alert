@@ -3,4 +3,4 @@ route:
 receivers: 
   - name: webserver-logger
     webhook_configs:
-      - url: http://go-webserver:2112/log
+      - url: http://lifeguard-container:5555/lifeguard/nginx/notification

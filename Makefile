@@ -29,4 +29,5 @@ run:
 		-v $(shell pwd)/alertmanager:/etc/alertmanager \
     prom/alertmanager
 
-
+test:
+	while true; do curl localhost:2112/wrong; sleep 1; done
