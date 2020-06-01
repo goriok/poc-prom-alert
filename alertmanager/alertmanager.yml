@@ -1,0 +1,6 @@
+route:
+  receiver: webserver-logger
+receivers: 
+  - name: webserver-logger
+    webhook_configs:
+      - url: http://go-webserver:2112/log
