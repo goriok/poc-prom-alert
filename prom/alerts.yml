@@ -6,5 +6,5 @@ groups:
       for: 10s
       annotations:
         summary: 'test of alert'
-      labels:
-        status: 'PROBLEM'
+        query: 'sum(increase(requests_total{code="500"}[10s])) > 0'
+        result: '{{ $value }}'
