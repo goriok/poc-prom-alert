@@ -1,10 +1,44 @@
 groups:
   - name: AllInstances
     rules:
-    - alert: TestAlert
+    - alert: TestAlert1
       expr: sum(increase(requests_total{code="500"}[10s])) > 0
       for: 10s
+      labels:
+        target: "InternalServerError"
+        interval: 600
+        staging: true
+        when: PROBLEM
+        env: local
       annotations:
-        summary: 'test of alert'
-        query: 'sum(increase(requests_total{code="500"}[10s])) > 0'
-        result: '{{ $value }}'
+        summary: "TESTE 500"
+        query: sum(increase(requests_total{code='500'}[10s])) > 0
+        result: "{{ $value }}"
+    - alert: TestAlert2
+      expr: sum(increase(requests_total{code='418'}[10s])) > 0
+      for: 10s
+      labels:
+        target: "Teapot"
+        interval: 600
+        staging: true
+        when: PROBLEM
+        env: local
+      annotations:
+        summary: "TESTE TEAPOT"
+        query: sum(increase(requests_total{code='418'}[10s])) > 0
+        result: "{{ $value }}"
+    - alert: TestAlert3
+      expr: sum(increase(requests_total{code='420'}[10s])) > 0
+      for: 10s
+      labels:
+        target: "Teapot"
+        interval: 600
+        staging: true
+        when: PROBLEM
+        env: local
+      annotations:
+        summary: "TESTE CALM"
+        query: sum(increase(requests_total{code='420'}[10s])) > 0
+        result: "{{ $value }}"
+        env: local
+

@@ -1,6 +1,6 @@
 route:
   receiver: webserver-logger
-receivers: 
+receivers:
   - name: webserver-logger
     webhook_configs:
-      - url: http://lifeguard-container:5555/lifeguard/nginx/notification
+      - url: http://lifeguard-container:5555/lifeguard/alertmanager/notification

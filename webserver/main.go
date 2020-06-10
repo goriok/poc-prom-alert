@@ -14,18 +14,23 @@ var (
 )
 
 func main() {
-	correctHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello from example application."))
-	})
 	wrongHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(500)
+	})
+
+	teapotHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(418)
+	})
+
+	calmHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(420)
 	})
 
   r := prometheus.NewRegistry()
 	r.MustRegister(RequestsTotal)
 	http.Handle("/metrics", promhttp.HandlerFor(r, promhttp.HandlerOpts{}))
-	http.Handle("/correct", promhttp.InstrumentHandlerCounter(RequestsTotal, correctHandler))
+	http.Handle("/teapot", promhttp.InstrumentHandlerCounter(RequestsTotal, teapotHandler))
+	http.Handle("/calm", promhttp.InstrumentHandlerCounter(RequestsTotal, calmHandler))
 	http.Handle("/wrong", promhttp.InstrumentHandlerCounter(RequestsTotal, wrongHandler))
 
   log.Fatal(http.ListenAndServe(":2112", nil))
